@@ -25,6 +25,21 @@ PlanetNix (SCaLE 22x), Pasadena, CA 2025
 
 Farid Zakaria <farid.m.zakaria@gmail.com>
 
+<GitCommitComponent />
+
+<style>
+
+.git-commit {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+</style>
+
 ---
 transition: fade-out
 layout: two-cols
