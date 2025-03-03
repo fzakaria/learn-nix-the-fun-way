@@ -6,10 +6,8 @@ background: ./images/nix-wallpaper-nineish-catppuccin-latte-alt.svg
 # some information about your slides (markdown enabled)
 title: Learn Nix the Fun Way
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+  This is a talk I am giving at [NixPlanet 2025](https://planetnix.com/)
+  on _why you may want use Nix_.
 # apply unocss classes to the current slide
 class: text-center
 # https://sli.dev/features/drawing
