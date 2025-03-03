@@ -262,6 +262,16 @@ layout: center
 layout: center
 ---
 
+<p>
+Once you know your full software graph, everything is a permutation on that.
+</p>
+
+<img src="./images/what_is_my_ip_graph.svg"/>
+
+---
+layout: center
+---
+
 ````md magic-move
 ```nix
 let
@@ -388,8 +398,197 @@ layout: center
 layout: center
 ---
 
-<p>
-Once you know your full software graph, everything is a permutation on that.
-</p>
+That's awesome! Unfortunately, our company uses Docker / Kubernetes 😔.
 
-<img src="./images/what_is_my_ip_graph.svg"/>
+<v-clicks>
+
+No problem! Again, once we know the graph of our software everything is <u>just a permutation</u>.
+
+```nix
+let
+  pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/5ef6c425980847c78a80d759abc476e941a9bf42.tar.gz") {};
+  what-is-my-ip = import ./what-is-my-ip.nix {inherit pkgs;};
+in
+  pkgs.dockerTools.buildImage {
+    name = "what-is-my-ip-docker";
+    config = {
+      Cmd = ["${what-is-my-ip}/bin/what-is-my-ip"];
+    };
+  }
+```
+
+</v-clicks>
+
+---
+layout: center
+---
+
+````md magic-move
+```console {all}
+> nix build -f what-is-my-ip-docker.nix --print-out-paths
+```
+
+```console
+> nix build -f what-is-my-ip-docker.nix --print-out-paths
+/nix/store/vwlbi7m9123cm6kjy1skh4fskh02c5zc-docker-image-what-is-my-ip-docker.tar.gz
+```
+
+```console
+> nix build -f what-is-my-ip-docker.nix --print-out-paths
+/nix/store/vwlbi7m9123cm6kjy1skh4fskh02c5zc-docker-image-what-is-my-ip-docker.tar.gz
+
+> docker load /nix/store/vwlbi7m9123cm6kjy1skh4fskh02c5zc-docker-image-what-is-my-ip-docker.tar.gz
+Loaded image: what-is-my-ip-docker:vwlbi7m9123cm6kjy1skh4fskh02c5zc
+```
+
+```console
+> nix build -f what-is-my-ip-docker.nix --print-out-paths
+/nix/store/vwlbi7m9123cm6kjy1skh4fskh02c5zc-docker-image-what-is-my-ip-docker.tar.gz
+
+> docker load /nix/store/vwlbi7m9123cm6kjy1skh4fskh02c5zc-docker-image-what-is-my-ip-docker.tar.gz
+Loaded image: what-is-my-ip-docker:vwlbi7m9123cm6kjy1skh4fskh02c5zc
+
+> docker run -it what-is-my-ip-docker:vwlbi7m9123cm6kjy1skh4fskh02c5zc
+73.231.52.39
+```
+
+```console
+> nix build -f what-is-my-ip-docker.nix --print-out-paths
+/nix/store/vwlbi7m9123cm6kjy1skh4fskh02c5zc-docker-image-what-is-my-ip-docker.tar.gz
+
+> docker load /nix/store/vwlbi7m9123cm6kjy1skh4fskh02c5zc-docker-image-what-is-my-ip-docker.tar.gz
+Loaded image: what-is-my-ip-docker:vwlbi7m9123cm6kjy1skh4fskh02c5zc
+
+> docker run -it what-is-my-ip-docker:vwlbi7m9123cm6kjy1skh4fskh02c5zc
+73.231.52.39
+
+> docker inspect what-is-my-ip-docker:vwlbi7m9123cm6kjy1skh4fskh02c5zc --format "{{.Config.Cmd}}"
+[/nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip/bin/what-is-my-ip]
+```
+````
+
+Remember <u>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</u>
+
+---
+layout: center
+---
+
+Cool ! 😎
+
+Nix + Docker integration perfectly. The image produced has only the files exactly necessary to run the tool provided, <u>effectively distroless</u>.
+
+You can do the same thing for any deployment format!
+
+- oci images
+- tarballs
+- self-extracing ZIP
+- rpm
+- deb
+- Flatpak / AppImage
+
+---
+layout: fact
+---
+
+A Linux distribution is simply a collection of packages.
+
+<style>
+p {
+  font-size: 2em;
+}
+</style>
+
+---
+layout: center
+---
+
+````md magic-move
+```nix {all|11-13|21|all}
+let
+  nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/archive/5ef6c425980847c78a80d759abc476e941a9bf42.tar.gz";
+  pkgs = import nixpkgs {};
+  what-is-my-ip = import ./what-is-my-ip.nix {inherit pkgs;};
+  nixos = import "${nixpkgs}/nixos" {
+    configuration = {
+      users.users.alice = {
+        isNormalUser = true;
+        # enable sudo
+        extraGroups = ["wheel"];
+        packages = [
+          what-is-my-ip
+        ];
+        initialPassword = "swordfish";
+      };
+
+      system.stateVersion = "24.05";
+    };
+  };
+in
+  nixos.vm
+```
+````
+
+---
+layout: center
+---
+
+````md magic-move
+```console
+> nix build -f what-is-my-ip-vm.nix --print-out-paths
+```
+
+```console
+> nix build -f what-is-my-ip-vm.nix --print-out-paths
+/nix/store/k6vqp2hn0gh7r5dmc61f5knqgnqn53wz-nixos-vm
+```
+
+```console
+> nix build -f what-is-my-ip-vm.nix --print-out-paths
+/nix/store/k6vqp2hn0gh7r5dmc61f5knqgnqn53wz-nixos-vm
+
+> QEMU_KERNEL_PARAMS=console=ttyS0 /nix/store/k6vqp2hn0gh7r5dmc61f5knqgnqn53wz-nixos-vm/bin/run-nixos-vm -nographic;reset
+```
+
+```console
+> nix build -f what-is-my-ip-vm.nix --print-out-paths
+/nix/store/k6vqp2hn0gh7r5dmc61f5knqgnqn53wz-nixos-vm
+
+> QEMU_KERNEL_PARAMS=console=ttyS0 /nix/store/k6vqp2hn0gh7r5dmc61f5knqgnqn53wz-nixos-vm/bin/run-nixos-vm -nographic;reset
+
+... long boot sequence ...
+
++++ Welcome to NixOS 24.11pre-git (x86_64) - ttyS0 +++
+
+Run 'nixos-help' for the NixOS manual.
+
+nixos login: alice
+Password:
+```
+
+```console
+> nix build -f what-is-my-ip-vm.nix --print-out-paths
+/nix/store/k6vqp2hn0gh7r5dmc61f5knqgnqn53wz-nixos-vm
+
+> QEMU_KERNEL_PARAMS=console=ttyS0 /nix/store/k6vqp2hn0gh7r5dmc61f5knqgnqn53wz-nixos-vm/bin/run-nixos-vm -nographic;reset
+
+... long boot sequence ...
+
++++ Welcome to NixOS 24.11pre-git (x86_64) - ttyS0 +++
+
+Run 'nixos-help' for the NixOS manual.
+
+nixos login: alice
+Password:
+
+[alice@nixos:~]$ which what-is-my-ip
+/etc/profiles/per-user/alice/bin/what-is-my-ip
+
+[alice@nixos:~]$ realpath $(which what-is-my-ip)
+/nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip/bin/what-is-my-ip
+
+[alice@nixos:~]$ what-is-my-ip
+73.231.52.39
+```
+````
+
+Remember <u>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</u>
