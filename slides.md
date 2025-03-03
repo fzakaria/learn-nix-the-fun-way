@@ -26,6 +26,7 @@ mdc: true
 PlanetNix (SCaLE 22x), Pasadena, CA 2025
 
 Farid Zakaria <farid.m.zakaria@gmail.com>
+
 ---
 transition: fade-out
 layout: two-cols
@@ -34,6 +35,7 @@ layout: two-cols
 # Hello 👋
 
 My name is Farid Zakaria, and I'm a software engineer at [Confluent](https://www.confluent.io/) mostly working on Bazel and pursuing a nearly-complete PhD at UC Santa Cruz.
+
 - "Long-time" Nix user (circa 2025)
 - Introduced Nix at [Looker](https://cloud.google.com/looker) (purchased by Google) and active member of internal community
 - Migrated a substantial JRuby, Java, Kotlin & JavaScript codebase to Nix; mostly via `nix-shell`
@@ -47,11 +49,12 @@ My name is Farid Zakaria, and I'm a software engineer at [Confluent](https://www
 
   <div style="margin-top:-50px; text-align: center;">
 
-  [farid.m.zakaria@gmail.com](mailto:farid.m.zakaria@gmail.com)
+[farid.m.zakaria@gmail.com](mailto:farid.m.zakaria@gmail.com)
 
-  [linkedin.com/in/fmzakari/](https://www.linkedin.com/in/fmzakari/)
+[linkedin.com/in/fmzakari/](https://www.linkedin.com/in/fmzakari/)
 
-  [x.com/fmzakari](https://x.com/fmzakari)
+[x.com/fmzakari](https://x.com/fmzakari)
+
   </div>
 </div>
 
@@ -111,9 +114,10 @@ transition: slide-left
 <div>
   <img src="./images/nix_presentation_boring_edited.png" alt="">
 
-  <img v-click src="./images/picard_nix_hash_meme.jpg"
+<img v-click src="./images/picard_nix_hash_meme.jpg"
   width="300" height="auto"
   style="position: absolute; bottom: 30%; left: 60%; z-index: 1;" />
+
 </div>
 
 ---
@@ -141,7 +145,6 @@ transition: slide-up
 <div style="--slidev-code-font-size: 30px; --slidev-code-line-height: 50px;">
 
 ````md magic-move
-
 ```bash {all}
 #! /usr/bin/env bash
 > curl -s http://httpbin.org/get | \
@@ -154,8 +157,8 @@ transition: slide-up
     jq --raw-output .origin
 73.231.52.39
 ```
-
 ````
+
 </div>
 
 ---
@@ -163,7 +166,6 @@ layout: center
 ---
 
 ````md magic-move
-
 ```nix {all}
 {
   system ? builtins.currentSystem,
@@ -205,16 +207,15 @@ pkgs.writeShellScriptBin "what-is-my-ip" ''
     ${pkgs.jq}/bin/jq --raw-output .origin
 ''
 ```
-
 ````
 
 ---
 layout: center
 ---
+
 <div style="--slidev-code-font-size: 20px; --slidev-code-line-height: 1.5em; max-width:100%">
 
 ````md magic-move
-
 ```shell {all}
 > nix build -f what-is-my-ip.nix --print-out-paths
 ```
@@ -232,8 +233,8 @@ layout: center
 > /nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip/bin/what-is-my-ip
 73.231.52.39
 ```
-
 ````
+
 </div>
 
 ---
@@ -243,7 +244,6 @@ layout: center
 <div style="--slidev-code-font-size: 0.8em; --slidev-code-line-height: 1.5em;">
 
 ````md magic-move
-
 ```console
 > cat /nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip/bin/what-is-my-ip
 ```
@@ -263,7 +263,6 @@ layout: center
 ---
 
 ````md magic-move
-
 ```nix
 let
   pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/5ef6c425980847c78a80d759abc476e941a9bf42.tar.gz") {};
@@ -316,7 +315,6 @@ Hello, PlanetNix!
 > /nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip/bin/what-is-my-ip
 73.231.52.39
 ```
-
 ````
 
 Remember <u>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</u>
@@ -349,7 +347,6 @@ layout: center
 ---
 
 ````md magic-move
-
 ```console
 > nix copy --to ssh://dennard.soe.ucsc.edu \
   $(nix build -f what-is-my-ip.nix --print-out-paths)
@@ -371,10 +368,9 @@ Last login: Mon Mar  3 05:02:57 2025 from 73.231.52.39
 Last login: Mon Mar  3 05:02:57 2025 from 73.231.52.39
 
 [dennard]
-> /nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip/bin/what-is-my-ip 
+> /nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip/bin/what-is-my-ip
 128.114.53.24
 ```
-
 ````
 
 Remember <u>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</u>

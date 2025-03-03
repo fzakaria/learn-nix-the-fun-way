@@ -5,7 +5,8 @@
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",
-    "export": "slidev export"
+    "export": "slidev export",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@slidev/cli": "^51.3.0",
