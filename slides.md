@@ -2,7 +2,7 @@
 # You can also start simply with 'default'
 theme: default
 
-background: ./images/nix-wallpaper-nineish-catppuccin-latte-alt.svg
+background: /nix-wallpaper-nineish-catppuccin-latte-alt.svg
 # some information about your slides (markdown enabled)
 title: Learn Nix the Fun Way
 info: |
