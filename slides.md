@@ -275,18 +275,92 @@ layout: center
 layout: center
 ---
 
+What is `/nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip` ?
+
+<v-clicks at="1">
+
+Why do we care about <code v-mark.underline.green>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</code>?
+
+<v-click>
+```console
+> nix derivation show /nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip
+```
+</v-click>
+</v-clicks>
+
+---
+layout: center
+---
+
+The following is <i>hashed</i> to calculate <code>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</code>.
+
+```json {all|9|15|17-25|32|all}{maxHeight:'500px'}
+{
+  "/nix/store/rw89fpljini3yx09v83ds4hyl4945lmk-what-is-my-ip.drv": {
+    "args": [
+      "-e",
+      "/nix/store/v6x3cs394jgqfbi0a42pam708flxaphh-default-builder.sh"
+    ],
+    "builder": "/nix/store/gwgqdl0242ymlikq9s9s62gkp5cvyal3-bash-5.2p37/bin/bash",
+    "env": {
+      "buildCommand": "<build command>",
+      "builder": "/nix/store/gwgqdl0242ymlikq9s9s62gkp5cvyal3-bash-5.2p37/bin/bash",
+      "name": "what-is-my-ip",
+      "out": "/nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip",
+      "stdenv": "/nix/store/cf464y41p2x3lh1qvbg6678lc3f8zbd6-stdenv-linux",
+      "system": "x86_64-linux",
+      "text": "<contents of script removed for brevity>"
+    },
+    "inputDrvs": {
+      "/nix/store/7k0msqyp2dm021sdj0qjgpkzff8xhqzr-bash-5.2p37.drv": {},
+      "/nix/store/a9dyisrdm25k6cprjvyppxrxs3n8b283-jq-1.7.1.drv": {},
+      "/nix/store/crgvallixc0kpg62whvkiv6x38p15nqr-curl-8.11.1.drv": {},
+      "/nix/store/ycj0m56p8b0rv9v78mggfa6xhm31rww3-stdenv-linux.drv": {}
+    },
+    "inputSrcs": [
+      "/nix/store/v6x3cs394jgqfbi0a42pam708flxaphh-default-builder.sh"
+    ],
+    "name": "what-is-my-ip",
+    "outputs": {
+      "out": {
+        "path": "/nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip"
+      }
+    },
+    "system": "x86_64-linux"
+  }
+}
+```
+
+---
+layout: default
+---
+
+<p>
+Seeing <code>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</code> means we have <i>extremely</i> strong guarantees of the software graph down to the commit and build instructions.
+</p>
+
+<img style="margin: auto; height: 400px; width: auto;" src="./images/denaziamigo-doggo.gif"/>
+
+---
+layout: center
+---
+
 <p>
 Once you know your full software graph, everything is a permutation on that.
 </p>
 
 <img src="./images/what_is_my_ip_graph.svg"/>
 
+```console
+> nix-store --query --graph /nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip
+```
+
 ---
 layout: center
 ---
 
 ````md magic-move
-```nix
+```nix {all|3,6|all}
 let
   pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/5ef6c425980847c78a80d759abc476e941a9bf42.tar.gz") {};
   what-is-my-ip = import ./what-is-my-ip.nix {inherit pkgs;};
@@ -417,7 +491,7 @@ That's awesome! Unfortunately, our company uses Docker / Kubernetes 😔.
 
 No problem! Again, once we know the graph of our software everything is <u>just a permutation</u>.
 
-```nix
+```nix {all|3,8|all}
 let
   pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/5ef6c425980847c78a80d759abc476e941a9bf42.tar.gz") {};
   what-is-my-ip = import ./what-is-my-ip.nix {inherit pkgs;};
@@ -516,7 +590,7 @@ layout: center
 ---
 
 ````md magic-move
-```nix {all|11-13|21|all}
+```nix {all|4,11-13|21|all}
 let
   nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/archive/5ef6c425980847c78a80d759abc476e941a9bf42.tar.gz";
   pkgs = import nixpkgs {};
@@ -605,3 +679,9 @@ Password:
 ````
 
 Remember <u>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</u>
+
+---
+layout: end
+---
+
+Fin.
