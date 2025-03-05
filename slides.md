@@ -6,8 +6,7 @@ background: /nix-wallpaper-nineish-catppuccin-latte-alt.svg
 # some information about your slides (markdown enabled)
 title: Learn Nix the Fun Way
 info: |
-  This is a talk I am giving at [NixPlanet 2025](https://planetnix.com/)
-  on _why you may want use Nix_.
+  This is a talk I am giving at NixPlanet 2025 (https://planetnix.com/) on why you may want use Nix.
 # apply unocss classes to the current slide
 class: text-center
 # https://sli.dev/features/drawing
@@ -25,6 +24,7 @@ PlanetNix (SCaLE 22x), Pasadena, CA 2025
 
 Farid Zakaria <farid.m.zakaria@gmail.com>
 
+<a href="https://fzakaria.github.io/learn-nix-the-fun-way">fzakaria.github.io/learn-nix-the-fun-way</a>
 <GitCommitComponent />
 
 <style>
@@ -40,6 +40,15 @@ Farid Zakaria <farid.m.zakaria@gmail.com>
 
 </style>
 
+<!--
+Hello!
+
+Welome to my talk on learning Nix the fun way.
+
+This slide deck can be found online at the following link.
+I welcome improvements, edits and corrections.
+-->
+
 ---
 transition: fade-out
 layout: two-cols
@@ -50,7 +59,7 @@ layout: two-cols
 My name is Farid Zakaria, and I'm a software engineer at [Confluent](https://www.confluent.io/) mostly working on Bazel and pursuing a nearly-complete PhD at UC Santa Cruz.
 
 - "Long-time" Nix user (circa 2025)
-- Introduced Nix at [Looker](https://cloud.google.com/looker) (purchased by Google) and active member of internal community
+- Introduced Nix at [Looker](https://cloud.google.com/looker) (acquired by Google) and active member of internal community
 - Migrated a substantial JRuby, Java, Kotlin & JavaScript codebase to Nix; mostly via `nix-shell`
 - Daily drive NixOS on my wonderful [frame.work](https://frame.work) laptop
 - Leverage Nix for a lot of my PhD work (come find me to talk about ongoing reasearch)
@@ -92,7 +101,15 @@ img {
 </style>
 
 <!--
-Here is another comment.
+Great, so before we begin, let me introduce myself.
+
+My name is Farid Zakaria, and I'm a Principal Engineer at the moment at Confluent most known for their product Apache Kafka. I'm working on build systems, specifically Bazel.
+
+I've been using Nix in various capacities for quite a while now. I've presented at a few previous incarnations of Nix conventions and even had the pleasure of brining Nix into my previous employer Looker which was acquired by Google.
+
+I'm very bullish on Nix and it has been a source of mostly joy, and it's additionally been the inspiration for a lot of my PhD research.
+
+You rarely get a chance to talk to anyone about the details of research, especially Nix, so come find me if you'd like to learn more.
 -->
 
 ---
@@ -107,6 +124,14 @@ p {
 }
 </style>
 
+<!--
+Okay, so this is the alternate working title for this talk.
+
+I want to share why I love Nix. Nix has brought a lot of joy,
+simplification to my software life and oftentimes learning it can
+feel challenging without much insight into what is the purpose.
+-->
+
 ---
 layout: center
 transition: fade
@@ -118,6 +143,19 @@ transition: fade
   width="300" height="auto"
   style="position: absolute; bottom: 30%; left: 60%; z-index: 1;" />>
 </div>
+
+<!--
+I've given a lot of talks about Nix. I've given talks to meetup groups,
+friends and plenty internally at the companies I've worked at.
+
+This is how I've always pictured myself giving a talk about Nix.
+
+It's always a nobel pursuit where I impart the beautiful knowledge of that which is Nix.
+
+** click **
+
+I tend to always begin these talks by starting at the beginning by discusisng Eelco's PhD, The Purely Functional Software Deployment Model, where he first shared Nix with the world in 2006
+-->
 
 ---
 layout: center
@@ -133,6 +171,15 @@ transition: slide-left
 
 </div>
 
+<!--
+In retrospect, this slide better depicts how the talks have gone.
+People in attendance are at best totally bored by the nuance and complexity of what I'm discussing.
+
+** click ** 
+
+At worst, I've immediately turned off potential new Nix-enthusiasts by immediately jumping into academic and dense vocabulary about the ideas and technology that powers Nix.
+-->
+
 ---
 layout: statement
 ---
@@ -147,6 +194,15 @@ p {
   line-height: 2em; 
 }
 </style>
+
+<!--
+The motivation of this talk is to do it different this time.
+
+** click **
+
+I want to impart the benefits of using Nix by what I believe to be
+learning Nix the fun way.
+-->
 
 ---
 layout: center
