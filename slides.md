@@ -230,12 +230,22 @@ transition: slide-up
 
 </div>
 
+<!--
+Let's begin with something seemingly innocuous.
+Here is a small script to determine the IP of your current machine.
+
+This should look pretty standard, I'm hoping to most people and probably
+reminiscent of a lot of scripts we might have written ourselves that stitches a few programs together.
+
+** click **
+-->
+
 ---
 layout: center
 ---
 
 ````md magic-move
-```nix {all}
+```nix {all|15-21}
 {
   system ? builtins.currentSystem,
   pkgs ?
@@ -278,6 +288,28 @@ pkgs.writeShellScriptBin "what-is-my-ip" ''
 ```
 ````
 
+<!--
+Here is what rewriting that same script in the most raw-form of Nix you might do.
+
+I know I just showed you a new language but for a tiny second just suspend questions you may have. The only take-away from the language my goal would be that it looks semi-similar to other languages you may have used; it has a somewhat JSON-like feel to it.
+
+** click **
+
+Here is the important part of this Nix recipe and it looks similar-ish to
+what we had before. 
+
+** click **
+
+But of course, this is not what you'd actually write in Nix.
+The following is a little more idiomatic and a lot more terse.
+
+Here it much more resembles the original script.
+
+** click **
+
+For those that might want to follow along now or later, it's important to keep note of this commit value and that I'm building this on an amd64 Linux machine.
+-->
+
 ---
 layout: center
 ---
@@ -306,6 +338,22 @@ layout: center
 
 </div>
 
+<!--
+Let's build it!
+
+** click **
+
+We get some output path, okay cool.
+
+** click **
+
+That output path has the script we created.
+
+** click **
+
+We can execute that script and it works as expected.
+-->
+
 ---
 layout: center
 ---
@@ -327,6 +375,16 @@ layout: center
 
 </div>
 
+<!--
+What is the script we produced though?
+Why did we need Nix?
+
+** click **
+
+The output of our script looks very similar now to the original variant
+we had before except everything seems to be prefixed with some long string.
+-->
+
 ---
 layout: center
 ---
@@ -343,6 +401,18 @@ Why do we care about <code v-mark.underline.green>y2g0ijqqiyi9vxr9xgmvvgblxqflqz
 ```
 </v-click>
 </v-clicks>
+
+<!--
+Although I promised not to go too academic into Nix; this part is important.
+
+** click **
+
+What is that long prefix string ahead of our built script and similarly found within the script before each of the tools?
+
+** click ** 
+
+There's a handy Nix command to show us the meaning of that prefix.
+-->
 
 ---
 layout: center
@@ -387,6 +457,33 @@ The following is <i>hashed</i> to calculate <code>y2g0ijqqiyi9vxr9xgmvvgblxqflqz
 }
 ```
 
+<!--
+The whole purpose of Nix is to kind of build this file.
+This is the recipe describing what it takes to build our IP script.
+
+** click **
+
+It has a build commmand
+
+** click **
+
+The text of our script which may also be the source code if it's a little more involved.
+
+** click **
+
+The tools we depend on to make the script function like cURL and jq.
+
+** click **
+
+The system we're running on since Nix also supports different architectures and operating systems.
+
+** click **
+
+All of this information is hashed to calculate this prefix.
+
+There's a really mind-bending property though.
+-->
+
 ---
 layout: default
 ---
@@ -396,6 +493,14 @@ Seeing <code>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</code> means we have <i>extremely<
 </p>
 
 <img style="margin: auto; height: 400px; width: auto;" src="./images/denaziamigo-doggo.gif"/>
+
+<!--
+That recipe earlier contained our necessary tools we needed, and the source code, each one also had a unique hash prefix.
+
+There's a level of recursion here that means repeatedly seeing this hash is an incredibly strong property of reproducibility.
+
+It means not only was our script text the same and tool dependencies the same, but the same applies to each tool itself and so forth.
+-->
 
 ---
 layout: center
@@ -410,6 +515,15 @@ Once you know your full software graph, everything is a permutation on that.
 ```console
 > nix-store --query --graph /nix/store/y2g0ijqqiyi9vxr9xgmvvgblxqflqzav-what-is-my-ip
 ```
+
+<!--
+In Nix, you spend considerable time wiring things up in Nix and the purpose to completely model your software as a graph.
+
+Turns out that once you have a graph, everything you might want to do in software is a permutation or transformation on the graph.
+
+Here we have the full dependency graph of our seemingly innocuous script.
+It's a little more involved than originally thought.
+-->
 
 ---
 layout: center
