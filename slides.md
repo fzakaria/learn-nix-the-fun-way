@@ -586,6 +586,32 @@ Hello, PlanetNix!
 
 Remember <u>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</u>
 
+<!--
+Okay, here is another Nix snippet. Again ignore the actual syntax but know
+that what we are defining here is a shell environment.
+
+** click ** 
+
+We import our same script and add it to the packages that we want present in our shell.
+
+** click ** 
+
+Let's enter the shell.
+
+** click **
+
+We see the same shell hook we wrote earlier. That's just an aid to demonstrate we entered the shell.
+
+** click ** 
+
+My PATH now contains what-is-my-ip, and importantly at the exact same
+hash prefix string we've built before.
+
+** click ** 
+
+The script also works and runs as we expect.
+-->
+
 ---
 layout: center
 ---
@@ -594,6 +620,15 @@ layout: center
 <p>
   <img src="./images/boom-mind-blown.gif" />
 </p>
+
+<!--
+Wow.
+Do we all realize what we just did ?
+
+We just created a simple way to bring reproducible developer environments for projects.
+
+No need for containers. No need for namespaces. Easy to enter and easy to validate thanks to that prefix hash.
+-->
 
 ---
 layout: center
@@ -642,6 +677,19 @@ Last login: Mon Mar  3 05:02:57 2025 from 73.231.52.39
 
 Remember <u>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</u>
 
+<!--
+Here is one such command to copy the graph we saw earlier to another machine. In this example we are leveraging a nix copy command but you could do something as dumb as scp or rsync.
+
+** click **
+
+The items are copied over. Now let's login to the machine.
+
+** click **
+
+The exact store path we want is present there and runs. The fact it runs means that all it's dependencies whom are also have hash prefix strings 
+are also present.
+-->
+
 ---
 layout: center
 ---
@@ -650,6 +698,13 @@ layout: center
 <p>
   <img src="./images/chris-pratt-mind-blown.gif" />
 </p>
+
+<!--
+Wow. We just did a deployment of not only our "code" which was our script
+but all of it's necessary dependencies.
+
+This blows my mind. I can't tell you the number of times in practice I had to coordinate the runtime needed on the host or some other base library being present.
+-->
 
 ---
 layout: center
@@ -675,6 +730,22 @@ in
 ```
 
 </v-clicks>
+
+<!--
+Well maybe that's a bit aggressive for deployments and you have already drank the kool-aid of kubernetes.
+
+** click ** 
+
+No problem! Since we know the graph, everything we'd want is merely a permutation on our graph.
+
+** click ** 
+
+Here is another snippet, and again ignore the syntax but know this is creating an OCI compliant image.
+
+** click **
+
+We set the command of the image to be our what-is-my-ip package.
+-->
 
 ---
 layout: center
@@ -725,6 +796,27 @@ Loaded image: what-is-my-ip-docker:vwlbi7m9123cm6kjy1skh4fskh02c5zc
 ````
 
 Remember <u>y2g0ijqqiyi9vxr9xgmvvgblxqflqzav</u>
+
+<!--
+Let's build the image.
+
+** click ** 
+
+The output is a OCI tarball.
+
+** click ** 
+
+We can load that tarball into the docker daemon as normal.
+
+** click ** 
+
+Running the tarball works as we'd expect as well.
+
+** click ** 
+
+Inspecting the image, we see yet again that same prefix hash on our package for the command to execute -- which continues to give us comfort about the
+version and state of our software.
+-->
 
 ---
 layout: center
