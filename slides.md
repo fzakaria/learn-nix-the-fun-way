@@ -635,7 +635,7 @@ layout: center
 ---
 
 <v-clicks>
-We actually know everything about our code know.
+We actually know everything about our code now.
 
 We can now do binary or source deployments 🚀🛠️📦 since we know the full dependency closure of our tool(s).
 </v-clicks>
