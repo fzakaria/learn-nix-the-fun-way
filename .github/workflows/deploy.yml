@@ -1,3 +1,6 @@
+# Build the deck hermetically with Nix and publish it to GitHub Pages:
+# the PDFs, the reveal.js build under reveal/, and a landing page --
+# exactly the tree `nix run` serves locally (packages.site in flake.nix).
 name: Deploy pages
 
 on:
@@ -10,6 +13,8 @@ permissions:
   pages: write
   id-token: write
 
+# One deploy at a time; a newer push supersedes a queued one, but never
+# cancels a deploy that is already in flight.
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -17,38 +22,32 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: cachix/install-nix-action@v31
         with:
-          node-version: "lts/*"
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup @antfu/ni
-        run: npm i -g @antfu/ni
+      - name: Build the site
+        run: nix build .#site --print-build-logs
 
-      - name: Install dependencies
-        run: nci
+      # The store path is read-only symlinks; upload a real copy.
+      - name: Stage
+        run: cp -rL --no-preserve=mode result _site
 
-      - name: Build
-        run: nr build --base /${{github.event.repository.name}}/
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - uses: actions/configure-pages@v4
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: _site
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4

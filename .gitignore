@@ -1,31 +1,16 @@
-node_modules
+# Build outputs
+/deck*.pdf
+/deck.pdfpc
+/svg/
+/site/
+/result
+/result-*
+
+# Tooling
 .direnv/
-# Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
-/build
-
-# OS
 .DS_Store
-Thumbs.db
 
-# Env
-.env
-.env.*
-!.env.example
-!.env.test
-
-# Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-
-# Don't include result
-result
-
-*.local
-.vite-inspect
-.remote-assets
-components.d.ts
+# NOTE: everything else must stay *tracked*, not merely present. Nix flakes
+# only see files git knows about, so a new .typ or image that you forget to
+# `git add` fails the build with "Path ... is not tracked by Git" rather than
+# being silently picked up from the working tree.

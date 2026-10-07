@@ -1,0 +1,40 @@
+# Deck identity — the single source of truth for colour.
+#
+# Read by `theme.typ`; Typst reads TOML natively. Kept as data rather than
+# Typst so a future figure script can share it.
+#
+# These hues are colour-blind validated as a set (adjacent-pair CVD ΔE ≥ 8,
+# normal-vision ΔE ≥ 15, OKLab ×100). If you swap in brand colours you must
+# re-validate — do not just pick new hex.
+
+[ink]
+primary    = "#0b0b0b"   # headlines, figure labels
+secondary  = "#52514e"   # supporting text
+muted      = "#898781"   # axis ticks, captions, slide numbers
+
+[surface]
+page       = "#fcfcfb"   # slide and chart background
+panel      = "#f4f3ef"   # boxes inside diagrams
+grid       = "#e1e0d9"   # hairline rules
+baseline   = "#c3c2b7"   # axis lines
+
+[series]
+# Categorical slots, assigned in this fixed order and never cycled.
+one        = "#2a78d6"   # blue
+two        = "#eb6834"   # orange
+three      = "#1baf7a"   # aqua
+
+[status]
+# Reserved. Never reused as a series colour.
+critical   = "#d03b3b"
+good       = "#0ca30c"
+
+[tint]
+# Faint fills derived from the series hues, for diagram boxes.
+blue       = "#e9f1fc"
+orange     = "#fdeee8"
+green      = "#eaf7ea"
+
+[font]
+sans       = "DejaVu Sans"
+mono       = "DejaVu Sans Mono"
