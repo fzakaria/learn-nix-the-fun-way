@@ -15,7 +15,8 @@ build:
 variants:
     typst compile --root . --font-path "$DECK_FONT_PATH" deck.typ deck.pdf
     typst compile --root . --font-path "$DECK_FONT_PATH" --input notes=right deck.typ deck-presenter.pdf
-    typst compile --root . --font-path "$DECK_FONT_PATH" --input notes=only  deck.typ deck-notes.pdf
+    typst compile --root . --font-path "$DECK_FONT_PATH" --input handout=1 deck.typ deck-handout.pdf
+    typst compile --root . --font-path "$DECK_FONT_PATH" --input handout=1 --input notes=only deck.typ deck-notes.pdf
 
 # slide beside its speaker notes -- open this on your laptop while presenting
 presenter:

@@ -35,6 +35,10 @@
 /// The pdfpc sidecar is emitted regardless; it is metadata, not layout.
 #let _notes = sys.inputs.at("notes", default: "none")
 
+/// `--input handout=1`: one page per slide, in its final state, instead of
+/// one page per click. For reading and sharing; presenting wants the clicks.
+#let _handout = sys.inputs.at("handout", default: none) != none
+
 /// Provenance, passed in by flake.nix as `--input`s. A `just watch` build
 /// has none of them, and says so.
 #let _repo = sys.inputs.at("repo", default: "github.com/fzakaria/learn-nix-the-fun-way")
@@ -174,6 +178,7 @@
         else { bottom }
       } else { none },
       show-only-notes: _notes == "only",
+      handout: _handout,
       notes-fn: _notes-pane,
     ),
     // `simple` repeats the level-1 heading as a running header. There are no
@@ -383,6 +388,9 @@
     if src.has("lang") and src.lang != none { lang = src.lang }
     src = src.text
   }
+  // A handout page shows a slide's last click, which for a listing is
+  // often a highlight that only made sense as one step of several.
+  if _handout { hl = () }
   // Fitted to the bare listing: the full-width highlight box would measure
   // as infinitely wide and shrink the text to nothing.
   _panel(..opts.named(), leading: leading, fit-to: raw(src, lang: lang, block: true), {

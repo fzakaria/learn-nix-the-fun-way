@@ -15,7 +15,7 @@ can find at
 ## Build
 
 ```bash
-nix build              # deck.pdf, deck-presenter.pdf, deck-notes.pdf, deck.pdfpc
+nix build              # deck.pdf, deck-presenter.pdf, deck-handout.pdf, deck-notes.pdf, deck.pdfpc
 nix build .#site       # the above + a reveal.js version (press S for speaker notes)
 nix run                # build and serve at http://localhost:8000/
 nix develop            # then `just watch` for live reload

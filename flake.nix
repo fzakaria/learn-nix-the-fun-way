@@ -106,10 +106,13 @@
 
             tc() { typst compile --root . --font-path ${fontPath} ${typstMeta} "$@"; }
 
-            # One source, three outputs. `notes` is ours; see theme.typ.
+            # One source, four outputs. `notes` and `handout` are ours; see
+            # theme.typ. The first two keep a page per click, to present
+            # from; the last two keep a page per slide, to read.
             tc deck.typ deck.pdf                                    # project this
             tc --input notes=right deck.typ deck-presenter.pdf      # slide | notes
-            tc --input notes=only  deck.typ deck-notes.pdf          # notes alone
+            tc --input handout=1 deck.typ deck-handout.pdf          # one page per slide
+            tc --input handout=1 --input notes=only deck.typ deck-notes.pdf  # notes alone
 
             # Sidecar metadata for pdfpc / pympress. Not layout.
             typst eval --root . --font-path ${fontPath} \
@@ -119,7 +122,7 @@
           installPhase = ''
             runHook preInstall
             mkdir -p $out
-            cp deck.pdf deck-presenter.pdf deck-notes.pdf deck.pdfpc $out/
+            cp deck.pdf deck-presenter.pdf deck-handout.pdf deck-notes.pdf deck.pdfpc $out/
             runHook postInstall
           '';
         };
@@ -184,8 +187,10 @@
             <a class="card" href="reveal/"><b>Present in the browser</b>
                <span>reveal.js. Press <b style="display:inline">S</b> for the speaker view:
                notes, next slide and a timer on a second screen.</span></a>
-            <a class="card" href="deck.pdf"><b>Slides (PDF)</b>
-               <span>What you project, if the browser is not an option.</span></a>
+            <a class="card" href="deck-handout.pdf"><b>Slides (PDF)</b>
+               <span>One page per slide, every click already revealed. Best for reading.</span></a>
+            <a class="card" href="deck.pdf"><b>Slides to present (PDF)</b>
+               <span>One page per click, to project if the browser is not an option.</span></a>
             <a class="card" href="deck-presenter.pdf"><b>Presenter view</b>
                <span>Each page is the slide beside its speaker notes.</span></a>
             <a class="card" href="deck-notes.pdf"><b>Notes only</b>
